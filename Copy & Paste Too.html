@@ -1,0 +1,75 @@
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f8f9fa;
+    padding: 20px;
+    color: #333;
+  }
+
+  .card {
+    max-width: 500px;
+    margin: auto;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    padding: 20px;
+    text-align: center;
+  }
+
+  input {
+    width: 80%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+  }
+
+  button {
+    background: #d9230f;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  button:hover {
+    background: #b61a0a;
+  }
+
+  #resultado a {
+    color: #0077cc;
+    font-weight: bold;
+  }
+</style>
+
+<div class="card">
+  <h2>🎯 Genera tu Link de Suscripción</h2>
+  <input type="text" id="canalInput" placeholder="Pega aquí tu link de YouTube">
+  <br>
+  <button onclick="generarLink()">Generar Link</button>
+  <p id="resultado"></p>
+  <button onclick="copiarLink()">📋 Copiar al portapapeles</button>
+</div>
+
+<script>
+let linkFinal = "";
+
+function generarLink() {
+  let input = document.getElementById('canalInput').value.trim();
+  let base = input.includes("youtube.com") ? input.split("?")[0] : "https://www.youtube.com/" + input;
+  linkFinal = base + "?sub_confirmation=1";
+  document.getElementById('resultado').innerHTML = `<a href="${linkFinal}" target="_blank">${linkFinal}</a>`;
+}
+
+function copiarLink() {
+  if (!linkFinal) return alert("Primero genera el link 😅");
+
+  navigator.clipboard.writeText(linkFinal).then(() => {
+    alert("¡Link copiado al portapapeles! ✅");
+  }, () => {
+    alert("Ups, no se pudo copiar 😕");
+  });
+}
+</script>
